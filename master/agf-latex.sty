@@ -1,0 +1,269 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{agf-latex}[2018/05/01 AGF-LaTeX package]
+
+
+%%%%%%%%%%%%%%%%
+% Typesetting  %
+%%%%%%%%%%%%%%%%
+%\RequirePackage[utf8]{inputenc}	% compile with lualatex instead of pdflatex
+%\usepackage[T1]{fontenc}			% use fontspec and lualatex instead
+\RequirePackage{fontspec}
+\RequirePackage[english]{babel}
+\usepackage{microtype}	 			% adjust the font spacings aesthetically
+\usepackage{textcomp} 				% Euro sign etc.
+%\usepackage{lmodern} 				% Mediävalziffern mit \oldstylenums{0123456789}
+%\usepackage{MinionPro} 			% optional: onlytext
+%\usepackage[sc, osf]{mathpazo}		% Use the Palatino font
+%\usepackage[]{hfoldsty}
+\usepackage[]{libertine}			% Use Libertine font type
+%\setmainfont[
+%%BoldFont=BaskervilleBook-Medium,
+%%BoldItalicFont=BaskervilleBook-MedItalic,
+%]{Adobe Devanagari}
+\usepackage[libertine]{newtxmath}
+\RequirePackage[
+%	style=french,	 				% german, french
+%	german=guillemets,	 			% guillemets, quotes, 
+%	autostyle=true
+]{csquotes}
+%%%%%%%%%%%%%%%%
+
+
+\RequirePackage{subfiles}			% add subfile functionality
+
+\usepackage{enumitem}
+\usepackage{multicol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract environment %
+%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont}
+%\renewcommand\abstractname{Abstract} 
+\renewenvironment{abstract}{
+	\par
+	\centering
+	\begin{minipage}{0.9\textwidth}
+		\textbf{\large\centering\abstractname\\[2ex]}
+	}{
+\end{minipage}\\[10ex]
+}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Graphics, colors etc %
+%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{graphicx}
+\graphicspath{{images/}{../images/}}
+\RequirePackage[dvipsnames]{xcolor}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{adjustbox}
+%\usepackage[graphicx]{realboxes}
+%\usepackage{float}
+%\restylefloat*{figure}
+\usepackage{capt-of}
+
+
+
+\usepackage{booktabs}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematical expressions %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{amsmath}
+\numberwithin{equation}{chapter}
+
+\RequirePackage{amsfonts}
+%\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+\RequirePackage{nicefrac}
+\RequirePackage{bm}
+\RequirePackage{chemformula}
+%===========================
+% Units $
+%---------------------------
+\RequirePackage[version-1-compatibility]{siunitx}
+\sisetup{ 
+	output-decimal-marker={.},
+	locale=US,
+	group-separator={,},
+	exponent-product=\cdot, 		% \times, \cdot
+	group-digits=integer,
+	retain-explicit-plus,
+	separate-uncertainty=true, 		% Appearance as () or \pm; in the code: \pm, +- or ()
+% 	tightpm,	 					% reduce space b/w value and error, alternatively:
+	uncertainty-separator={\,},
+	multi-part-units=single, 		% evtl. enclose errors; repeat, single, brackets
+	range-units=repeat,	  			% evtl. enclose ranges; repeat, single, brackets
+% 	range-phrase={{~to~}},	 		% optional; {{~to~}}, {\,--\,}
+	list-units=single,
+% 	mode=text, 						% Oldstyle numbers (load respective font -> hfoldsty)
+% 	valuemode=text,unitmode=maths, 	% Oldstyle not for power expressions
+% 	color=blue, 					% colors all SI-expressions
+	per-mode=reciprocal, 			% symbol, reciprocal, fraction, symbol-or-fraction
+	% möchte man zB reciprocal und fraction kombinieren, gibt es die Möglichkeit, hier die Darstellungsmethode für den Textmodus anzugeben und die einzelnen Math-Umgebungen zu erweitern (siehe Commands)
+	fraction-function=\dfrac, 		% ugly, nice, \dfrac
+	quotient-mode=fraction, 		% symbol, fraction
+	number-unit-separator=\text{\,}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyperlinks and References %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[
+	urlcolor=RoyalBlue,
+	citecolor=Green,
+	linkcolor=purple,
+]{hyperref}
+%
+\RequirePackage[nameinlink, english]{cleveref} % muss nach hyperref eingebunden werden
+% \crefname{<type>}{<singular>}{<plural>}
+%\Crefname{equation}{Equation}{Equations}
+%\crefname{equation}{eq.}{eq.}
+%
+\RequirePackage{nameref}
+%\RequirePackage{varioref}
+%\RequirePackage{fancyref}
+\newcommand{\citep}{\parencite}
+\newcommand{\citet}{\textcite}
+\RequirePackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% Code highlighting %
+%%%%%%%%%%%%%%%%%%%%%
+%\RequirePackage{minted}
+%\BeforeBeginEnvironment{minted}{\bigskip}
+%\AfterEndEnvironment{minted}{\bigskip}
+%
+%\definecolor{CodeBG}{rgb}{0.95, 0.95, 0.95}
+%\setminted{
+%	frame=lines,
+%	framesep=3mm,
+%	baselinestretch=1.2,
+%	bgcolor=CodeBG,
+%	tabsize=4,
+%	breaklines,	
+%}
+%\setminted[python,matlab]{linenos}
+%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Geometry & Spacing %
+%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[
+%bottom=3cm, top=2.5cm, left=2cm, right=2cm, bindingoffset=10mm
+]{geometry}
+\RequirePackage{adjustbox}
+%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[]{lscape}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% redefine subfile command to
+% - add \addbibresource in subfiles
+% - adjust \graphicspath
+% - add \subinput and \subinclude
+% - enclose subfile in refsection environment
+% ========================================
+\newcommand{\onlyinsubfile}[1]{#1}
+\newcommand*{\subinput}[1]{\input{#1}}
+
+\makeatletter
+\let\org@subfile\subfile
+% define subinput and subinclude
+\newcommand{\printreferences}{\printbibliography[title={References}]}
+\renewcommand*{\subfile}[1]{%
+	\renewcommand*{\addbibresource}[1]{\onlyinsubfile{\addbibresource{#1}}}
+	\filename@parse{#1}%
+	\expandafter%
+	% redefine image path for each subfile-directory
+	\graphicspath\expandafter{\expandafter{\filename@area images/}}%
+	% adjust path for subinput
+	\renewcommand*{\subinput}[1]{%
+		\expandafter%
+		\input\expandafter{\expandafter\filename@area ##1}%
+	}%
+	\begin{refsection}[\filename@area bibliography.bib]%
+		\renewcommand{\printreferences}{\printbibliography[title={References}, heading=subbibnumbered]}
+		\org@subfile{#1}%
+	\end{refsection}%
+	\newpage%
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Multiple appendices %
+%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{appendix}
+\newcommand{\subappendix}[1]{
+        \onlyinsubfile{
+        \appendix
+%     	\begin{appendices}
+			\chapter{Appendix}%
+			\subinput{#1}
+%		\end{appendices}
+		}
+}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[
+	colorinlistoftodos,
+	ngerman,
+	% 	color=,
+	% 	backgroundcolor=,
+	% 	linecolor=,
+	% 	bordercolor=,
+	textsize=footnotesize,
+	shadow,
+	figwidth=7cm,
+	figheight=5cm
+]{todonotes}
+\RequirePackage[]{showkeys}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DISABLE for final version:
+%% ----------------------------
+%\addtolength{\paperwidth}{5cm}
+%\addtolength{\hoffset}{2.5cm}
+%\addtolength{\marginparwidth}{2.5cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\newcommand*{\chapterauthor}[1]{
+	\textit{
+		\vspace{.5\baselineskip}
+		\large #1}
+	\vspace{4\baselineskip}
+}
+
+
+
+
+\RequirePackage{tocloft}
+\renewcommand{\cfttabpresnum}{Tab. } 
+\renewcommand{\cftfigpresnum}{Fig. } 
+\setlength{\cftfignumwidth}{1.5cm}                     
+\setlength{\cfttabnumwidth}{2cm}                                           
+\setlength{\cftfigindent}{0em}                                                     
+\setlength{\cfttabindent}{0cm}
+\setlength{\cftsecnumwidth}{1cm}
+

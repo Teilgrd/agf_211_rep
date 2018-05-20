@@ -1,0 +1,94 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX template for the AGF fieldwork reports at UNIS  %
+% ===================================================== %
+% The class accepts the options							%
+% - 11pt/12pt											%
+%	  fontsize in pt									%
+% - onside/twoside										%
+%	  one-/two-sided page layout						%
+% - demo:												%
+%	  omits images for faster compilation				%
+% - working:											%
+%	  backreferences in Bibliography + Watermark		%
+% - final												%
+%	  disables todonotes, keylabels, backrefs, watermark%
+% - print												%
+%		hide links (still active, but black)			%
+% ===================================================== %
+% Last edited: May, 2018 by Markus Ritschel				%
+% kontakt@markusritschel.de								%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{../master/config}
+
+\documentclass[12pt, final, oneside]{agf-latex}
+\usepackage{agf-latex}
+\listfiles
+\usepackage{blindtext}
+
+%BEGIN_FOLD
+% ---------------------------------------------------
+\hypersetup{
+	pdftitle={\Title},
+	pdfauthor={\Authors}
+	pdfsubject = {\CourseDescription},
+	pdfkeywords = {},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% helpful links:
+%https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
+%http://ash.id.au/post/2014/09/19/thesis-in-latex/
+%https://tex.stackexchange.com/questions/107064/bibliographies-when-using-subfiles
+%https://stackoverflow.com/questions/2765209/latex-bibliography-per-chapter
+%https://texblog.org/2012/10/22/multiple-bibliographies-with-biblatex/
+%http://wiki.davidhaberthuer.ch/latex#chapterbib
+%https://tex.stackexchange.com/a/353976
+%https://tex.stackexchange.com/a/126040
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%END_FOLD
+
+
+\begin{document}
+\renewcommand{\onlyinsubfile}[1]{}
+
+
+%========================================
+\include{titlepage}
+
+\cleardoublepage
+\pagenumbering{Roman}
+\include{Preface}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+
+\iflineno
+	\linenumbers
+\fi
+
+\cleardoublepage
+\pagenumbering{arabic}
+%========================================
+
+
+%========================================
+% include the single chapters here
+\subfile{../student16/main}
+
+
+%========================================
+
+
+%========================================
+% include the appendices here
+\cleardoublepage
+\part*{Appendices}
+%\begin{appendices}
+%    \chapter{Studenxx's appendix}
+%	\subinput{../studentxx/appendix}
+%\end{appendices}
+%========================================
+
+\end{document}
